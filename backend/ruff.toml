@@ -1,0 +1,11 @@
+# Max characters per line (default is 88)
+line-length = 100
+
+# Skip these paths, in addition to Ruff's defaults (.git, venv, etc.)
+extend-exclude = ["*/migrations/*"]
+
+[lint]
+# Rules to ignore
+ignore = [
+    "RUF012",  # Django/DRF use mutable class attrs (list_display, fields) by design
+]
