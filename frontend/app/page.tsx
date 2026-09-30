@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getTodos } from "@/lib/api";
 import type { Todo } from "@/lib/types";
+import TodoForm from "@/components/TodoForm";
 
 export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -23,6 +24,7 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-xl p-6">
       <h1 className="mb-4 text-2xl font-bold">Todos</h1>
+      <TodoForm onCreated={(todo) => setTodos((prev) => [todo, ...prev])} />
       {todos.length === 0 ? (
         <p>No todos yet.</p>
       ) : (
