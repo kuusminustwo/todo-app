@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getTodos } from "@/lib/api";
 import type { Todo } from "@/lib/types";
 import TodoForm from "@/components/TodoForm";
+import TodoItem from "@/components/TodoItem";
 
 export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -30,9 +31,14 @@ export default function Home() {
       ) : (
         <ul className="space-y-2">
           {todos.map((todo) => (
-            <li key={todo.id} className="rounded border p-3">
-              {todo.title}
-            </li>
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              onUpdated={(updated) =>
+                setTodos((prev) => prev.map((t) => (t.id === updated.id ? updated : t)))
+              }
+              onDeleted={(id) => setTodos((prev) => prev.filter((t) => t.id !== id))}
+            />
           ))}
         </ul>
       )}
