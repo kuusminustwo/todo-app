@@ -10,13 +10,41 @@ todo-app/
 └── frontend/   # Next.js app
 ```
 
-## Prerequisites
+## Quick start (Docker)
+
+Requires [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+
+```bash
+make up
+```
+
+Or without `make`:
+
+```bash
+docker compose up --build -d
+```
+
+Then open http://localhost:3000 (API: http://localhost:8000/api/todos/).
+The database tables are created automatically on startup.
+
+| Command | What it does |
+|---|---|
+| `make up` | Build and start everything |
+| `make logs` | Follow the logs (Ctrl+C to stop watching) |
+| `make down` | Stop everything (data is kept) |
+| `make clean` | Stop everything and delete the database |
+
+Ports 3000, 8000 and 5432 must be free.
+
+## Manual setup (without Docker)
+
+### Prerequisites
 
 - Python 3.12+
 - Node.js 20+
 - PostgreSQL 15+
 
-## 1. Database
+### 1. Database
 
 Create an empty database:
 
@@ -24,7 +52,7 @@ Create an empty database:
 createdb todo_db
 ```
 
-## 2. Backend
+### 2. Backend
 
 ```bash
 cd backend
@@ -52,7 +80,7 @@ python manage.py runserver
 
 The API runs at http://localhost:8000/api/todos/
 
-## 3. Frontend
+### 3. Frontend
 
 In a new terminal:
 
@@ -95,6 +123,10 @@ Example todo:
 **Admin panel:** create an admin user, then open http://localhost:8000/admin
 
 ```bash
+# Docker
+docker compose exec backend python manage.py createsuperuser
+
+# Manual setup (from backend/, with venv active)
 python manage.py createsuperuser
 ```
 
